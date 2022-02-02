@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odo-deployment-2
+  labels:
+    app: motd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: motd
+  template:
+    metadata:
+      labels:
+        app: motd
+    spec:
+      containers:
+      - name: motd
+        image: 0diallo/motd:latest
+        env:
+         - name: MESSAGE
+           valueFrom:
+             configMapKeyRef:
+                     name: configmap-odo
+                     key: msg     

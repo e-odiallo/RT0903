@@ -15,4 +15,6 @@ docker login
 docker build -t $account/$dockerName:$version .
 docker push  $account/$dockerName:$version
  
+echo " Update deployement on Kubernetes" 
 
+sed -e 's|VERSION|'$version'|g' k8s/deployment_template.yml |kubectl apply -f - 
